@@ -13,7 +13,7 @@ python3 scripts/validate-build.py
 npm run preview
 ```
 
-If the environment prevents Astro's telemetry preferences from being written, prefix npm commands with `ASTRO_TELEMETRY_DISABLED=1`. Publish only `dist/`, not the project root. The installed Astro 5 version is locked in `package-lock.json`.
+If the environment prevents Astro's telemetry preferences from being written, prefix npm commands with `ASTRO_TELEMETRY_DISABLED=1`. For Vercel deployment and SMTP configuration, follow [VERCEL-DEPLOYMENT.md](VERCEL-DEPLOYMENT.md). Do not upload the project root as a static website. The installed Astro 5 version is locked in `package-lock.json`.
 
 ## Organization
 
@@ -38,7 +38,9 @@ src/
     TestimonialsSection.astro
     VendorStrip.astro
   data/site.ts                   # Navigation, contact, social URLs, services, projects
-  utils/forms.ts                 # Public HTTPS form destination validation
+  server/forms.ts                # Validation, rate limiting, responses
+  server/mail.ts                 # Private SMTP transport
+  pages/api/forms.ts             # Server-rendered POST endpoint
   pages/
     index.astro
     about.astro
@@ -68,7 +70,7 @@ The layout imports Bootstrap CSS, template CSS, and customization overrides in t
 | `/contact` | Contact Us banner → introductory heading → two-column form/contact information → Vendor strip |
 | `/privacy`, `/terms` | Existing unfinished legal templates; remain `noindex` |
 
-Main navigation is Home, About, Services, Portfolio, Contact. Existing homepage anchors `/#about`, `/#services`, and `/#portfolio` still work. Quote CTAs go to `/contact`; secondary legacy pages are not migrated. Team, blog, counters, and map sections remain absent.
+Main navigation is Home, About, Services, Portfolio, Contact. Existing homepage anchors `/#about`, `/#services`, and `/#portfolio` still work. The hero Free Quote CTA scrolls to `/#request-quote`; Contact Us goes to `/contact`; secondary legacy pages are not migrated. Team, blog, counters, and map sections remain absent.
 
 ## Shared interfaces
 
@@ -83,16 +85,11 @@ Main navigation is Home, About, Services, Portfolio, Contact. Existing homepage 
 1. Set the real production origin in `astro.config.mjs` before publishing. `https://example.com` remains a placeholder; links assume hosting at the domain root.
 2. Replace the contact details and empty social URLs in `src/data/site.ts`. Empty social destinations render labeled, non-clickable icons rather than broken links.
 3. Replace project and sample testimonial/vendor content with approved material. No actual client, partnership, award, or experience claims are implied by these examples.
-4. Copy `.env.example` to `.env` and supply public HTTPS POST URLs:
+4. Configure the private SMTP variables listed in `.env.example`, locally in `.env` or in Vercel Environment Variables. See [VERCEL-DEPLOYMENT.md](VERCEL-DEPLOYMENT.md).
 
-```dotenv
-PUBLIC_CONTACT_FORM_ACTION=https://your-provider.com/your-contact-form
-PUBLIC_NEWSLETTER_FORM_ACTION=https://your-provider.com/your-newsletter-form
-```
+Contact, Quote, and Email Signup POST to `/api/forms`. All forms are enabled with native validation and server validation. The server sends a plain-text email to `MAIL_TO`, using the verified `SMTP_FROM` sender and the visitor's email as Reply-To. Signup sends a subscription request to the owner; it does not automatically enroll anyone in a mailing list.
 
-Contact and Quote share the contact endpoint. Contact submits `name`, `email`, `subject`, `message`; Quote submits `name`, `email`, `service`, `message`; signup submits `email`. Configure each form's fields, server-side validation, spam controls, delivery, and success/error responses in the provider. Never place API secrets in these public values. Rebuild after configuration changes.
-
-Missing, malformed, non-HTTPS, or example-domain URLs disable the entire form fieldset and show an honest unavailable message. Configured forms use normal HTML POST and native validation; no client-side form scripts or legacy PHP files are included. The design migration does not configure email delivery.
+A small progressive form script displays sending, success, and error feedback. Failed submissions retain entered values. Without JavaScript, the endpoint returns an HTML response. Missing SMTP settings return an honest error, never a success claim. SMTP credentials remain server-side. The endpoint includes a honeypot and process-local rate limiting; limits are not shared between serverless instances.
 
 ## Responsive behavior and scripts
 
@@ -103,21 +100,12 @@ Missing, malformed, non-HTTPS, or example-domain URLs disable the entire form fi
 - Testimonials: three visible desktop cards, two on tablet, one on mobile; horizontally scrollable with a keyboard-focusable region. Vendor logos also scroll horizontally.
 - Footer preserves the template's desktop and tablet column structure and stacks on mobile.
 - Reduced-motion CSS removes transitions and smooth scrolling. Sticky header and back-to-top use CSS.
-- No Bootstrap JavaScript, jQuery, Owl Carousel, WOW, spinner, or counter library is loaded. Only Navbar and Hero contain scripts.
+- No Bootstrap JavaScript, jQuery, Owl Carousel, WOW, spinner, or counter library is loaded. Scripts are limited to Navbar, Hero, and progressive form feedback.
 
 ## Acceptance checks
 
-`validate-build.py` checks routes, navigation order, one H1/main per page, unique IDs, metadata, legal noindex, local assets/links/anchors, six services, portfolio counts, absent map/counters/team/blog links, and disabled form states.
+`validate-build.py` checks routes, navigation order, one H1/main per page, unique IDs, metadata, legal noindex, local assets/links/anchors, six services, portfolio counts, absent map/counters/team/blog links, and enabled form destinations.
 
-A separate configured build can be checked without delivering any messages:
-
-```sh
-PUBLIC_CONTACT_FORM_ACTION=https://forms.parralux.test/contact \
-PUBLIC_NEWSLETTER_FORM_ACTION=https://forms.parralux.test/newsletter \
-ASTRO_TELEMETRY_DISABLED=1 npm run build -- --outDir /tmp/parralux-forms-check
-python3 scripts/validate-build.py /tmp/parralux-forms-check --configured
-```
-
-The `.test` URLs are validation-only endpoints; do not deploy them. This build verifies enabled fields and POST destinations without replacing the normal `dist/` output.
+Run `npm test` for validation, error responses, and local TLS SMTP delivery tests. These tests do not send external email. Run `VERCEL=1 npm run build` and `python3 scripts/validate-build.py .vercel/output/static` to verify Vercel output.
 
 Visual QA targets 1440, 1024, 768, and 375px. The local `file://` HTML reference cannot be opened by the browser tool under its URL policy; matching is based on the original source, assets, styles, and inspection of the restored Astro pages rather than a claimed pixel-diff comparison.

@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@astrojs/node": "^9.5.5",
+    "@astrojs/vercel": "^8.2.11",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "astro": "^5.0.0",
     "dotenv": "^18.0.4",
