@@ -1,0 +1,10 @@
+---
+import SectionHeading from './SectionHeading.astro';
+---
+<section class="container-fluid py-5" aria-labelledby="testimonials-heading"><div class="container py-5">
+  <SectionHeading id="testimonials-heading" eyebrow="Testimonials" title="A Space for Our Clients’ Experiences" centered />
+  <p class="text-center">Sample testimonials for layout preview. Client stories will be added here.</p>
+  <div class="testimonial-track" tabindex="0" role="region" aria-label="Four sample testimonials; scroll to see more">
+    {[1,2,3,4].map((number) => <article class="testimonial-card bg-light my-4"><div class="d-flex align-items-center border-bottom pt-5 pb-4 px-4"><img class="rounded" src={`/images/testimonial-${number}.jpg`} width="60" height="60" alt="" loading="lazy" /><div class="ps-4"><h3 class="h4 text-primary mb-1">Sample Client {number}</h3><p class="small text-uppercase mb-0">Example only</p></div></div><div class="pt-4 pb-5 px-4"><p class="mb-0">This is a sample testimonial card. An approved client story about their project and experience will appear here.</p></div></article>)}
+  </div>
+</div></section>

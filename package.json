@@ -1,0 +1,26 @@
+{
+  "name": "parralux-digital",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "start": "node --env-file-if-exists=.env dist/server/entry.mjs",
+    "test": "node --experimental-strip-types --test tests/*.test.ts"
+  },
+  "dependencies": {
+    "@astrojs/node": "^9.5.5",
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "astro": "^5.0.0",
+    "dotenv": "^18.0.4",
+    "nodemailer": "^10.0.13"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@types/nodemailer": "^8.0.2",
+    "typescript": "^5.7.0"
+  }
+}

@@ -1,0 +1,14 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import PhoneBlock from './PhoneBlock.astro';
+const qualities = ['Thoughtful Design', 'Clear Communication', 'Ongoing Support', 'Practical Solutions'];
+---
+<section class="container-fluid py-5" id="about" aria-labelledby="about-heading"><div class="container py-5"><div class="row g-5">
+  <div class="col-lg-7">
+    <SectionHeading id="about-heading" eyebrow="About Us" title="Digital Solutions Built Around Your Business" />
+    <p class="mb-4">ParRaLux Digital brings design, development, and ongoing support together to help your business take its next step online. From a clear brand identity to an intuitive website or online store, we focus on making technology useful for you and your customers. We work with you to understand your goals, plan the right approach, and build a digital experience that can grow with your business.</p>
+    <div class="row g-0 mb-3">{qualities.map((quality) => <div class="col-sm-6"><p class="h5 mb-3"><i class="fa-solid fa-check text-primary me-3" aria-hidden="true"></i>{quality}</p></div>)}</div>
+    <PhoneBlock /><a class="btn btn-primary py-3 px-5 mt-3" href="/contact">Request A Quote</a>
+  </div>
+  <div class="col-lg-5"><img class="about-image rounded" src="/images/about.jpg" width="800" height="800" alt="Colleagues discussing a digital project" loading="lazy" /></div>
+</div></div></section>

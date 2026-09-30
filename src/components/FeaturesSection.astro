@@ -1,0 +1,17 @@
+---
+import SectionHeading from './SectionHeading.astro';
+const features = [
+  {title: 'Built Around Your Goals', icon: 'fa-cubes', text: 'A practical approach that connects your business priorities with the right digital tools.'},
+  {title: 'Attention to Detail', icon: 'fa-pen-ruler', text: 'Thoughtful design and careful implementation across the experiences we create.'},
+  {title: 'Collaborative Approach', icon: 'fa-users-gear', text: 'Clear communication and shared decisions throughout your project.'},
+  {title: 'Ongoing Support', icon: 'fa-headset', text: 'Help maintaining and improving your digital presence as your needs change.'},
+];
+---
+<section class="container-fluid py-5" aria-labelledby="features-heading"><div class="container py-5">
+  <SectionHeading id="features-heading" eyebrow="Why Choose Us" title="We Are Here to Help Your Business Grow" centered />
+  <div class="row g-5 align-items-stretch">
+    <div class="col-lg-4"><div class="d-grid gap-5">{features.slice(0,2).map((feature) => <article><div class="template-icon bg-primary rounded mb-3"><i class:list={['fa-solid text-white', feature.icon]} aria-hidden="true"></i></div><h3 class="h4">{feature.title}</h3><p class="mb-0">{feature.text}</p></article>)}</div></div>
+    <div class="col-lg-4"><img class="feature-image rounded" src="/images/feature.jpg" width="800" height="800" alt="A team collaborating on a business project" loading="lazy" /></div>
+    <div class="col-lg-4"><div class="d-grid gap-5">{features.slice(2).map((feature) => <article><div class="template-icon bg-primary rounded mb-3"><i class:list={['fa-solid text-white', feature.icon]} aria-hidden="true"></i></div><h3 class="h4">{feature.title}</h3><p class="mb-0">{feature.text}</p></article>)}</div></div>
+  </div>
+</div></section>

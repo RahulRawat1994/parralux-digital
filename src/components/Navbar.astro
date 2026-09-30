@@ -1,0 +1,28 @@
+---
+import { navigation } from '../data/site';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<header class="site-header shadow-sm">
+  <nav class="navbar navbar-expand-lg navbar-dark px-3 px-lg-5 py-3 py-lg-0" aria-label="Main navigation" data-navigation>
+    <a class="navbar-brand p-0" href="/" aria-label="ParRaLux Digital home"><img class="brand-logo" src="/images/parralux-logo.png" width="2172" height="724" alt="ParRaLux Digital" /></a>
+    <button class="navbar-toggler" type="button" aria-controls="main-menu" aria-expanded="true" aria-label="Toggle navigation" hidden data-menu-toggle><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+    <div class="prl-menu navbar-collapse" id="main-menu"><div class="navbar-nav ms-auto py-0">
+      {navigation.map(({label, href}) => <a href={href} class:list={['nav-item nav-link', {active: href === path}]} aria-current={href === path ? 'page' : undefined}>{label}</a>)}
+    </div></div>
+  </nav>
+</header>
+<script>
+  const navigation = document.querySelector<HTMLElement>('[data-navigation]');
+  const button = navigation?.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = navigation?.querySelector<HTMLElement>('#main-menu');
+  if (navigation && button && menu) {
+    navigation.parentElement?.classList.add("navigation-ready");
+    const mobile = window.matchMedia('(max-width: 991.98px)');
+    const setOpen = (open: boolean) => { menu.hidden = !open; button.setAttribute('aria-expanded', String(open)); };
+    const sync = () => { button.hidden = !mobile.matches; setOpen(!mobile.matches); };
+    button.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
+    navigation.addEventListener('keydown', (event) => { if (event.key === 'Escape' && mobile.matches) { setOpen(false); button.focus(); } });
+    mobile.addEventListener('change', sync);
+    sync();
+  }
+</script>

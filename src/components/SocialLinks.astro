@@ -1,0 +1,9 @@
+---
+import { socials } from '../data/site';
+---
+<div class="prl-social" aria-label="Social media">
+  {socials.map(({label, icon, href}) => href ?
+    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle" href={href} aria-label={label}><i class:list={['fa-brands', icon]} aria-hidden="true"></i></a> :
+    <span class="btn btn-sm btn-outline-light btn-sm-square rounded-circle social-placeholder" role="img" aria-label={`${label} profile coming soon`} title={`${label} profile coming soon`}><i class:list={['fa-brands', icon]} aria-hidden="true"></i></span>
+  )}
+</div>

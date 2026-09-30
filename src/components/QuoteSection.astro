@@ -1,0 +1,21 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import PhoneBlock from './PhoneBlock.astro';
+import { services } from '../data/site';
+import FormFields from './FormFields.astro';
+---
+<section class="container-fluid py-5" id="request-quote" aria-labelledby="quote-heading"><div class="container py-5"><div class="row g-5">
+  <div class="col-lg-7"><SectionHeading id="quote-heading" eyebrow="Request A Quote" title="Have a Project in Mind? Let’s Talk About It" />
+    <div class="row mb-3"><p class="col-sm-6 h6"><i class="fa-solid fa-reply text-primary me-3" aria-hidden="true"></i>Tell us what you need</p><p class="col-sm-6 h6"><i class="fa-solid fa-phone text-primary me-3" aria-hidden="true"></i>Discuss the next steps</p></div>
+    <p>Whether you are planning a new website, building an online store, or improving an existing experience, we would like to hear about it. Share your priorities and the service you are interested in. We can help you explore the options and outline a practical direction for your project.</p><PhoneBlock />
+  </div>
+  <div class="col-lg-5"><div class="quote-panel bg-primary rounded h-100 p-4 p-md-5">
+    <form action="/api/forms" data-mail-form method="POST" aria-label="Request a quote"><fieldset class="d-grid gap-3">
+      <label class="visually-hidden" for="quote-name">Name</label><input id="quote-name" name="name" class="form-control bg-light border-0" placeholder="Your Name" autocomplete="name" maxlength="120" required />
+      <label class="visually-hidden" for="quote-email">Email</label><input id="quote-email" name="email" type="email" class="form-control bg-light border-0" placeholder="Your Email" autocomplete="email" maxlength="254" required />
+      <label class="visually-hidden" for="quote-service">Service</label><select class="form-select bg-light border-0" id="quote-service" name="service" required><option value="">Select A Service</option>{services.map(({title}) => <option value={title}>{title}</option>)}</select>
+      <label class="visually-hidden" for="quote-message">Message</label><textarea class="form-control bg-light border-0" id="quote-message" name="message" rows="3" placeholder="Message" maxlength="5000" required></textarea>
+      <button class="btn btn-dark w-100 py-3" type="submit">Request A Quote</button>
+    </fieldset><FormFields type="quote" /></form>
+  </div></div>
+</div></div></section>

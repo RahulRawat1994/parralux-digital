@@ -1,0 +1,19 @@
+---
+import { navigation, contact } from '../data/site';
+import SocialLinks from './SocialLinks.astro';
+import FormFields from './FormFields.astro';
+---
+<footer class="prl-footer bg-dark text-light mt-5">
+  <div class="container"><div class="row gx-5">
+    <div class="col-lg-4 col-md-6"><section class="prl-footer-signup bg-primary text-center p-4 h-100" aria-labelledby="signup-title">
+      <a class="prl-footer-brand" href="/"><img class="brand-logo" src="/images/parralux-logo.png" width="2172" height="724" alt="ParRaLux Digital home" loading="lazy" /></a>
+      <h2 class="h4 text-white mt-4" id="signup-title">Email Signup</h2><p>Get digital insights and updates from ParRaLux Digital.</p>
+      <form action="/api/forms" data-mail-form method="POST" class="prl-signup-form" aria-label="Email signup"><fieldset><label class="visually-hidden" for="signup-email">Your email address</label><div class="input-group"><input class="form-control border-white p-3" id="signup-email" name="email" type="email" autocomplete="email" placeholder="Your Email" required /><button class="btn btn-dark" type="submit">Sign Up</button></div></fieldset><FormFields type="newsletter" /></form>
+    </section></div>
+    <div class="col-lg-8 col-md-6"><div class="row gx-4">
+      <section class="col-lg-4 col-md-12 pt-5 pb-4"><div class="section-title section-title-sm position-relative pb-3 mb-4"><h2 class="h4 text-light mb-0">Get In Touch</h2></div><p><i class="fa-solid fa-location-dot text-primary me-2" aria-hidden="true"></i>{contact.address}</p><p><i class="fa-solid fa-envelope text-primary me-2" aria-hidden="true"></i>{contact.email}</p><p><i class="fa-solid fa-phone text-primary me-2" aria-hidden="true"></i>{contact.phone}</p><SocialLinks /></section>
+      {['Quick Links','Popular Links'].map((heading) => <section class="col-lg-4 col-md-12 pt-5 pb-4"><div class="section-title section-title-sm position-relative pb-3 mb-4"><h2 class="h4 text-light mb-0">{heading}</h2></div><nav class="link-animated d-flex flex-column" aria-label={heading}>{navigation.map(({label,href}) => <a class="text-light mb-2" href={href}><i class="fa-solid fa-arrow-right text-primary me-2" aria-hidden="true"></i>{label}</a>)}</nav></section>)}
+    </div></div>
+  </div></div>
+  <div class="prl-copyright py-4"><div class="container text-center"><p class="mb-2">&copy; {new Date().getFullYear()} <a class="text-white border-bottom" href="/">ParRaLux Digital</a>. All Rights Reserved. Designed by <a class="text-white border-bottom" href="https://htmlcodex.com">HTML Codex</a></p><nav class="d-flex justify-content-center gap-4" aria-label="Legal links"><a class="text-white" href="/privacy">Privacy template</a><a class="text-white" href="/terms">Terms template</a></nav></div></div>
+</footer>

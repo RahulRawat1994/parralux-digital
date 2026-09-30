@@ -1,0 +1,10 @@
+---
+import { projects } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+---
+<section class="container py-5" id="portfolio" aria-labelledby="portfolio-heading">
+  <SectionHeading id="portfolio-heading" eyebrow="Portfolio" title="Our Portfolio" centered />
+  <p class="text-center mb-5">Selected projects will be published here soon.</p>
+  <div class="prl-services">{projects.map((project) => <article class="prl-service portfolio-card"><p class="text-primary text-uppercase small fw-bold">Project placeholder</p><h3>{project}</h3><p>Case study coming soon.</p></article>)}</div>
+  <div class="text-center mt-4"><a class="btn btn-primary py-3 px-4" href="/contact">Discuss your project</a></div>
+</section>

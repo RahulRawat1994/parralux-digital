@@ -1,0 +1,9 @@
+---
+interface Props { title: string; breadcrumb?: string; }
+const {title, breadcrumb = title} = Astro.props;
+---
+<section class="page-banner bg-header text-center text-white" aria-labelledby="page-title">
+  <div class="container"><h1 class="display-4 text-white" id="page-title">{title}</h1>
+    <nav aria-label="Breadcrumb"><ol class="prl-breadcrumb"><li><a class="h5 text-white" href="/">Home</a></li><li aria-current="page">{breadcrumb}</li></ol></nav>
+  </div>
+</section>

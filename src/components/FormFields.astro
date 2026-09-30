@@ -1,0 +1,7 @@
+---
+interface Props { type: 'contact' | 'quote' | 'newsletter'; }
+const {type} = Astro.props;
+---
+<input type="hidden" name="form_type" value={type} />
+<div class="form-honeypot" aria-hidden="true"><label for={`${type}-website`}>Leave this field empty</label><input type="text" id={`${type}-website`} name="website" tabindex="-1" autocomplete="off" /></div>
+<p class="form-feedback small mt-3 mb-0" role="status" aria-live="polite" data-form-status hidden></p>

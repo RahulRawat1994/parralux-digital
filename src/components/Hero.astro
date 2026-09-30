@@ -1,0 +1,37 @@
+<section class="prl-hero" aria-labelledby="hero-title" aria-roledescription="carousel" data-hero>
+  <div class="hero-images" aria-hidden="true">
+    <img src="/images/carousel-1.jpg" width="1920" height="1080" alt="" fetchpriority="high" class="hero-image is-active" />
+    <img src="/images/carousel-2.jpg" width="1920" height="1080" alt="" loading="lazy" class="hero-image" />
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-copy text-center p-3">
+    <p class="h5 text-white text-uppercase mb-3">Creative &amp; Innovative</p>
+    <h1 class="display-1 text-white mb-4" id="hero-title">Creative &amp; Innovative Digital Solutions</h1>
+    <div class="d-flex flex-wrap justify-content-center gap-3"><a href="#request-quote" class="btn btn-primary py-3 px-4 px-md-5">Free Quote</a><a href="/contact" class="btn btn-outline-light py-3 px-4 px-md-5">Contact Us</a></div>
+  </div>
+  <div data-hero-controls hidden>
+    <button type="button" class="hero-control hero-prev" aria-label="Previous slide"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+    <button type="button" class="hero-control hero-next" aria-label="Next slide"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+    <p class="visually-hidden" aria-live="polite" data-slide-status>Slide 1 of 2</p>
+  </div>
+</section>
+<script>
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  if (hero) {
+    const images = Array.from(hero.querySelectorAll<HTMLElement>('.hero-image'));
+    const controls = hero.querySelector<HTMLElement>('[data-hero-controls]');
+    const status = hero.querySelector<HTMLElement>('[data-slide-status]');
+    let index = 0;
+    const changeSlide = (step: number) => {
+      index = (index + step + images.length) % images.length;
+      images.forEach((image, i) => image.classList.toggle('is-active', i === index));
+      if (status) status.textContent = `Slide ${index + 1} of ${images.length}`;
+    };
+    if (controls) controls.hidden = false;
+    hero.querySelector('.hero-prev')?.addEventListener('click', () => changeSlide(-1));
+    hero.querySelector('.hero-next')?.addEventListener('click', () => changeSlide(1));
+    controls?.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') { event.preventDefault(); changeSlide(event.key === 'ArrowLeft' ? -1 : 1); }
+    });
+  }
+</script>

@@ -1,0 +1,47 @@
+/* ParRaLux Digital: reusable layout utilities */
+.brand-logo { display: block; width: 240px; max-width: 100%; height: auto; }
+.prl-services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.prl-service { padding: 2rem; background: var(--light, #eef9ff); border-radius: .75rem; }
+.prl-service > i { color: #007da8; font-size: 2rem; margin-bottom: 1.25rem; }
+.prl-service h3 { font-size: 1.4rem; }
+.prl-contact-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; align-items: start; }
+.prl-contact-panel { min-width: 0; padding: clamp(1.25rem, 3vw, 2.5rem); background: var(--light, #eef9ff); border-radius: .75rem; }
+.prl-contact-panel h2 { font-size: 1.65rem; margin-bottom: 1.5rem; }
+.prl-contact-form { display: grid; gap: .65rem; }
+.prl-contact-form label { font-weight: 600; color: var(--dark, #091e3e); }
+.prl-contact-form input, .prl-contact-form textarea { box-sizing: border-box; width: 100%; min-width: 0; padding: .85rem 1rem; border: 1px solid #8ba7b6; border-radius: .3rem; background: #fff; color: #091e3e; font: inherit; margin-bottom: .6rem; }
+.prl-contact-form textarea { resize: vertical; min-height: 10rem; }
+.prl-contact-form button { justify-self: start; background: #007da8; border-color: #007da8; }
+.prl-contact-form :focus-visible, .navbar a:focus-visible, .prl-footer-links a:focus-visible { outline: 3px solid #007da8; outline-offset: 3px; }
+.prl-contact-info > div { position: relative; padding-left: 2.5rem; margin-top: 2rem; overflow-wrap: anywhere; }
+.prl-contact-info i { position: absolute; left: 0; top: .25rem; color: #007da8; }
+.prl-contact-info h3 { font-size: 1.15rem; }
+.prl-contact-info address { font-style: normal; }
+.prl-footer-links { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; }
+@media (max-width: 991.98px) { .prl-services { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 767.98px) { .prl-contact-layout, .prl-services { grid-template-columns: minmax(0, 1fr); } }
+
+/* Shared header and restored template footer */
+.prl-topbar { display: flex; justify-content: space-between; align-items: center; gap: .75rem 1.5rem; min-height: 45px; padding-top: .4rem; padding-bottom: .4rem; }
+.prl-topbar-contact { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; font-size: .8rem; }
+.prl-social { display: flex; flex-wrap: wrap; gap: .4rem; }
+.navbar.navbar-dark { background: #fff; align-items: center; }
+.navbar .navbar-brand { display: flex; align-items: center; margin-right: 2rem; flex-shrink: 0; }
+.navbar-dark .navbar-nav .nav-link { color: var(--dark); }
+.navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link:hover { color: #007da8; }
+.prl-footer-signup { display: flex; flex-direction: column; justify-content: center; min-height: 360px; }
+.prl-footer-brand { display: block; padding: .75rem; background: white; border-radius: .25rem; }
+.prl-footer-brand .brand-logo { margin-inline: auto; }
+.prl-footer p { overflow-wrap: anywhere; }
+.prl-copyright { background: #061429; }
+.prl-signup-form input { min-width: 0; }
+@media (min-width: 992px) {
+    .navbar.navbar-dark { min-height: 96px; }
+    .navbar-dark .navbar-nav .nav-link, .sticky-top.navbar-dark .navbar-nav .nav-link { padding: 34px 0; }
+}
+@media (max-width: 991.98px) {
+    .prl-topbar { flex-wrap: wrap; }
+    .navbar .brand-logo { width: 210px; }
+    .navbar-dark .navbar-nav .nav-link { margin-left: 0; }
+}
+@media (max-width: 359.98px) { .navbar .brand-logo { width: 180px; } .navbar .navbar-brand { margin-right: .5rem; } }

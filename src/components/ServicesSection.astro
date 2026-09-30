@@ -1,0 +1,9 @@
+---
+import { services } from '../data/site';
+import ServiceCard from './ServiceCard.astro';
+import SectionHeading from './SectionHeading.astro';
+---
+<section class="container py-5" id="services" aria-labelledby="services-heading">
+  <SectionHeading id="services-heading" title="Our Services" description="Digital expertise for your next stage of growth." centered />
+  <div class="prl-services">{services.map((service) => <ServiceCard {...service} />)}</div>
+</section>
